@@ -3,15 +3,15 @@ import Nat "mo:base/Nat";
 import Int "mo:base/Int";
 
 actor DBank {
-  var currentValue: Nat = 300;
-  currentValue := 100;
+  stable var currentValue: Nat = 300; // stable is used to persist the variable 
+  // currentValue := 100;
 
   let id = 4561546515; // let assigned cant be changed
   // Debug.print(debug_show(currentValue));
 
   public func topUp(amount: Nat) {
     currentValue += amount;
-    Debug.print(debug_show (currentValue));
+    // Debug.print(debug_show (currentValue));
   };
 
   public func withdrawl(amount: Nat){
@@ -24,7 +24,13 @@ actor DBank {
       Debug.print("There is a issue"); // no need of debug_show coz its a string
     }
     
-  }
+  };
+
+// syunchronous fns is like two train on the same track
+// asynchronous is like two trains on diff tracks
+  public query func checkBalance(): async Nat{
+     return currentValue;
+  };
 
   // topUp();  
 //method 1  
