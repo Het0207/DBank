@@ -1,8 +1,9 @@
 import Debug "mo:base/Debug";
 import Nat "mo:base/Nat";
+import Int "mo:base/Int";
 
 actor DBank {
-  var currentValue = 300;
+  var currentValue: Nat = 300;
   currentValue := 100;
 
   let id = 4561546515; // let assigned cant be changed
@@ -14,8 +15,15 @@ actor DBank {
   };
 
   public func withdrawl(amount: Nat){
-    currentValue -= amount;
-    Debug.print(debug_show (currentValue));
+    let tempValue:Int = currentValue - amount;  /// written due to warning
+    if(tempValue >=0){
+      currentValue -= amount;
+      Debug.print(debug_show (currentValue));
+    }
+    else{
+      Debug.print("There is a issue"); // no need of debug_show coz its a string
+    }
+    
   }
 
   // topUp();  
